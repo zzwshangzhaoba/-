@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZZW服务器管理系统</title><style>
+body{
+    margin:0;
+    background:#000;
+    color:#00ff00;
+    font-family:Consolas,monospace;
+}
+
+#loginPage{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.box{
+    width:350px;
+    border:1px solid #00ff00;
+    padding:25px;
+    text-align:center;
+    box-shadow:0 0 20px #00ff00;
+}
+
+input{
+    width:90%;
+    padding:12px;
+    background:#000;
+    color:#00ff00;
+    border:1px solid #00ff00;
+    margin-top:10px;
+}
+
+button{
+    margin-top:15px;
+    padding:12px 30px;
+    background:#00ff00;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+#panel{
+    display:none;
+    padding:20px;
+}
+
+.card{
+    border:1px solid #00ff00;
+    margin-top:10px;
+    padding:12px;
+}
+
+#logs{
+    height:200px;
+    overflow:auto;
+}
+</style></head><body><div id="loginPage">
+    <div class="box">
+        <h2>ZZW服务器验证中心</h2>    <input id="pwd" type="password" placeholder="请输入卡密">
+
+    <br>
+
+    <button onclick="login()">登录</button>
+</div>
+
+</div><div id="panel"><h1>ZZW服务器控制台</h1><div class="card">服务器状态：在线</div><div class="card">服务器地区：东京节点</div><div class="card">公网IP：103.188.66.82</div><div class="card">
+CPU占用：
+<span id="cpu">0%</span>
+</div><div class="card">
+内存占用：
+<span id="ram">0GB</span>
+</div><div class="card">
+网络带宽：
+<span id="band">0 Mbps</span>
+</div><div class="card">
+代理连接数：
+<span id="proxy">0</span>
+</div><div class="card">
+实时攻击拦截：
+<span id="attack">0</span>
+</div><div class="card">
+HTTPS防护：
+已开启
+</div><div class="card">
+DDoS防护：
+已开启
+</div><div class="card">
+数据库状态：
+正常
+</div><div class="card">
+在线节点：
+东京 ✔<br>
+香港 ✔<br>
+新加坡 ✔<br>
+洛杉矶 ✔
+</div><div class="card">
+系统日志
+<div id="logs"></div>
+</div></div><script>
+
+function login(){
+
+    let pwd =
+    document.getElementById("pwd").value.trim();
+
+    if(pwd === "zwwnb"){
+
+        alert("登录成功");
+
+        document.getElementById("loginPage").style.display="none";
+
+        document.getElementById("panel").style.display="block";
+
+    }else{
+
+        alert("卡密错误");
+
+    }
+}
+
+document.getElementById("pwd")
+.addEventListener("keydown",function(e){
+
+    if(e.key==="Enter"){
+        login();
+    }
+
+});
+
+const logs=[
+"节点连接成功",
+"数据库同步完成",
+"防火墙规则刷新",
+"代理节点上线",
+"检测到异常流量",
+"已拦截访问请求",
+"系统运行正常",
+"缓存清理完成",
+"AI安全扫描完成"
+];
+
+setInterval(function(){
+
+    document.getElementById("cpu").innerText =
+    Math.floor(Math.random()*35+10)+"%";
+
+    document.getElementById("ram").innerText =
+    Math.floor(Math.random()*200+120)+"GB / 512GB";
+
+    document.getElementById("band").innerText =
+    Math.floor(Math.random()*5000+3000)+" Mbps";
+
+    document.getElementById("proxy").innerText =
+    Math.floor(Math.random()*500+100);
+
+    document.getElementById("attack").innerText =
+    Math.floor(Math.random()*10000+5000);
+
+},1000);
+
+setInterval(function(){
+
+    let log=
+    document.getElementById("logs");
+
+    let time=
+    new Date().toLocaleTimeString();
+
+    let text=
+    logs[Math.floor(Math.random()*logs.length)];
+
+    log.innerHTML +=
+    "["+time+"] "+text+"<br>";
+
+    log.scrollTop=
+    log.scrollHeight;
+
+},1500);
+
+</script></body>
+</html>
